@@ -1,4 +1,4 @@
-package com.example.mytutor;
+package com.example.panda;
 
 import org.junit.Test;
 
