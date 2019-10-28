@@ -142,7 +142,6 @@
         android:layout_marginBottom="64dp"
 
         android:background="@android:color/transparent"
-        android:enabled="false"
         app:fontFamily="@font/manjari_bold"
         android:text="@string/action_sign_up"
 

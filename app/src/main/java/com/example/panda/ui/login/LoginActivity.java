@@ -2,14 +2,26 @@ package com.example.panda.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.panda.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -64,8 +76,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(final String email, final String password) {
-        /*String cancelRequestTag = "login";
-        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, URL_LOGIN, new Response.Listener<JSONObject>() {
+        String cancelRequestTag = "login";
+
+        /*Map<String, String> params = new HashMap<String, String>();
+        params.put("email", email);
+        params.put("password", password);
+
+        JSONObject userInput = new JSONObject(params);
+
+        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, URL_LOGIN, userInput, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "Register Response: " + response);
@@ -101,17 +120,22 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }) {
+        });*/
+        System.out.println("I'm in loginUser().");
+        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, URL_LOGIN + "DRoberts/", null, new Response.Listener<JSONObject>() {
             @Override
-            protected Map<String, String> getParams() {
-                // Posting params to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("password", password);
-                return params;
+            public void onResponse(JSONObject response) {
+                System.out.println("Response: " + response.toString());
             }
-        };
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO: Handle error
+
+            }
+        });
+
         // Add request to queue.
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonReq, cancelRequestTag)*/
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonReq, cancelRequestTag);
     }
 }

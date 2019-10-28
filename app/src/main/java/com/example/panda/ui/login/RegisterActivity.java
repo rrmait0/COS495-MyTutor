@@ -1,6 +1,8 @@
 package com.example.panda.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,13 +14,25 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.panda.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
     private static final String ROOT_URL = "http://34.69.211.169/api/";
-    private static final String URL_REGISTER = ROOT_URL + "users/create/new";
+    private static final String URL_REGISTER = ROOT_URL + "users/create";
     private EditText usernameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -73,35 +87,38 @@ public class RegisterActivity extends AppCompatActivity {
         final String defaultBio = "Hi, I'm " + firstName + "!";
         String cancelRequestTag = "register";
 
-        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, URL_REGISTER, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, "Register Response: " + response);
-                try {
-                    JSONObject jObj = response;
-                    String error = jObj.getString("status");
+        final JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, URL_REGISTER, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-                    if (error != "fail") {
-                        String user = jObj.getJSONObject("user").getString("first_name");
-                        // Launch User activity
-                        Intent intent = new Intent(
-                                RegisterActivity.this,
-                                UserActivity.class);
-                        intent.putExtra("username", user);
-                        startActivity(intent);
-                        Log.d(TAG, "Welcome " + user);
-                        finish();
-                    } else {
+                    Log.d(TAG, "Register Response: " + response);
+                    try {
+                        JSONObject jObj = response;
+                        String error = jObj.getString("status");
 
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
+                        if (error != "fail") {
+                            String user = jObj.getJSONObject("user").getString("first_name");
+                            // Launch User activity
+                            Intent intent = new Intent(
+                                    RegisterActivity.this,
+                                    UserActivity.class);
+                            intent.putExtra("username", user);
+                            startActivity(intent);
+                            Log.d(TAG, "Welcome " + user);
+                            finish();
+                        } else {
+
+                            String errorMsg = jObj.getString("error_msg");
+                            Toast.makeText(getApplicationContext(),
+                                    errorMsg, Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    System.out.println("Response: " + response.toString());
 
-            }
+                }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -111,8 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() {
-                // Posting params to login url
+            protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("first_name", firstName);
                 params.put("last_name", lastName);
@@ -120,11 +136,14 @@ public class RegisterActivity extends AppCompatActivity {
                 params.put("username", username);
                 params.put("password", password);
                 params.put("bio", defaultBio);
+                System.out.println(params.toString());
                 return params;
             }
         };
+
+        //System.out.println(params.toString() + "POOPASS");
         // Add request to queue.
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonReq, cancelRequestTag);*/
+        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest, cancelRequestTag);*/
     }
 
     private void showRegistrationFailed(@StringRes Integer errorString) {
