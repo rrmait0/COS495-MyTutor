@@ -28,15 +28,15 @@
         />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="24dp"
 
-        android:autofillHints="@string/prompt_email"
-        android:hint="@string/prompt_email"
+        android:autofillHints="@string/prompt_username"
+        android:hint="@string/prompt_username"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:fontFamily="@font/manjari_thin"
@@ -63,7 +63,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/username"
         tools:targetApi="o" />
 
     <Button

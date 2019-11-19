@@ -1,6 +1,7 @@
 package com.example.panda.ui.login;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.panda.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
@@ -250,18 +252,28 @@ public class RegisterActivity extends AppCompatActivity {
 
         JSONObject userInput = new JSONObject(params);
 
-        System.out.println(userInput.toString());
-
-        // Request a string response from the provided URL.
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_REGISTER, userInput,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Display the first 500 characters of the response string.
-                        if(response != null) {
-                            System.out.println("Response is: " + response.toString());
-                        } else {
-                            System.out.println("Response is null.");
+                        try {
+                            JSONObject jObj = response;
+                            String error = jObj.getString("status");
+
+                            if (error.equals("success")) {
+                                // Launch User activity
+                                Intent intent = new Intent(
+                                        RegisterActivity.this,
+                                        UserActivity.class);
+                                finish();
+                            } else {
+
+                                String errorMsg = jObj.getString("error_msg");
+                                Toast.makeText(getApplicationContext(),
+                                        errorMsg, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
