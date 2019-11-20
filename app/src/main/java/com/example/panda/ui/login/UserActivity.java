@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,16 +19,30 @@ import org.json.JSONObject;
 
 public class UserActivity extends AppCompatActivity {
 
-    private final Intent intent = getIntent();
-    private final String username = intent.getStringExtra("username");
-
     private static final String ROOT_URL = "http://34.69.211.169/api/";
-    private final String URL_PROFILE = ROOT_URL + "users/" + username;
+    private String URL_PROFILE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        Bundle extras = getIntent().getExtras();
+        TextView firstNameView = findViewById(R.id.firstName);
+        TextView lastNameView = findViewById(R.id.lastName);
+        TextView bioView = findViewById(R.id.bio);
+        Button homeButton = findViewById(R.id.homeButton);
+        Button searchButton = findViewById(R.id.searchButton);
+
+        String username;
+        if(extras != null) {
+            username = extras.getString("username");
+        } else {
+            username = "Couldn't get username";
+        }
+
+        System.out.println(username);
+        URL_PROFILE = ROOT_URL + "users/" + username;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_PROFILE, null,
                 new Response.Listener<JSONObject>() {
