@@ -159,6 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(
                                         LoginActivity.this,
                                         UserActivity.class);
+                                intent.putExtra("username", username);
                                 finish();
                             } else {
 
