@@ -9,9 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.panda.R;
 
 import org.json.JSONException;
@@ -41,14 +43,15 @@ public class UserActivity extends AppCompatActivity {
             username = "Couldn't get username";
         }
 
-        System.out.println(username);
         URL_PROFILE = ROOT_URL + "users/" + username;
+        System.out.println(URL_PROFILE);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_PROFILE, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Display the first 500 characters of the response string.
                         JSONObject jObj = response;
                         //TODO: Damn Daniel... back at it again with the strategy to store individual elements of this JSON object.
 
@@ -59,5 +62,6 @@ public class UserActivity extends AppCompatActivity {
                 System.out.println("That didn't work!");
             }
         });
+        queue.add(jsonObjectRequest);
     }
 }
