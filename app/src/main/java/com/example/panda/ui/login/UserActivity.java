@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +34,8 @@ public class UserActivity extends AppCompatActivity {
         TextView firstNameView = findViewById(R.id.firstName);
         TextView lastNameView = findViewById(R.id.lastName);
         TextView bioView = findViewById(R.id.bio);
-        Button homeButton = findViewById(R.id.homeButton);
         Button searchButton = findViewById(R.id.searchButton);
+        Button appointmentButton = findViewById(R.id.appointmentButton);
 
         String username;
         if(extras != null) {
@@ -63,5 +64,30 @@ public class UserActivity extends AppCompatActivity {
             }
         });
         queue.add(jsonObjectRequest);
+
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Use Intent to send the user to the next activity.
+                // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
+                Intent searchActivity = new Intent(getApplicationContext(), SearchActivity.class);
+
+                // Start that activity.
+                startActivity(searchActivity);
+            }
+        });
+
+        /*appointmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Use Intent to send the user to the next activity.
+                // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
+                Intent appointmentActivity = new Intent(getApplicationContext(), AppointmentActivity.class);
+
+                // Start that activity.
+                startActivity(appointmentActivity);
+            }
+        });*/
     }
 }
