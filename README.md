@@ -1,17 +1,2 @@
-
-README
-
-COS 495 Fall 2019 
-
-included:
-All source files 
-this README
-Makefile
-Output
-
-
-
-
-
-
-
+# COS495-MyTutor
+The MyTutor app for Kentucky State University.
