@@ -157,9 +157,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (error.equals("success")) {
                                 // Launch User activity
                                 Intent intent = new Intent(
-                                        LoginActivity.this,
+                                        getApplicationContext(),
                                         UserActivity.class);
-                                finish();
+                                intent.putExtra("username", username);
+                                startActivity(intent);
                             } else {
 
                                 String errorMsg = jObj.getString("error_msg");
