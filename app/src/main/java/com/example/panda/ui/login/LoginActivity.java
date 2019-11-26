@@ -2,6 +2,7 @@ package com.example.panda.ui.login;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -192,9 +193,34 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        JSONObject jObj = response;
+                        try {
+                            JSONObject jObj = response;
+                            Intent intent = new Intent(
+                                    getApplicationContext(),
+                                    UserActivity.class);
 
+                            // The response contains a user object which contains first_name,
+                            // last_name, username, email, password. The other elements you can get
+                            // directly from the response by element.
 
+                            // Cache the values.
+                            JSONObject user = jObj.getJSONObject("user");
+                            String firstName = user.getString("first_name");
+                            String lastName = user.getString("last_name");
+                            String bio = jObj.getString("bio");
+                            String rating = jObj.getString("rating");
+
+                            // Use intent to carry them over to the UserActivity
+                            intent.putExtra("firstName", firstName);
+                            intent.putExtra("lastName", lastName);
+                            intent.putExtra("bio", bio);
+                            intent.putExtra("rating", rating);
+
+                            startActivity(intent);
+                        } catch (Exception e)  {
+                            System.out.println("In getProfile, exception was thrown.");
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
