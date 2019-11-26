@@ -40,17 +40,11 @@ public class UserActivity extends AppCompatActivity {
         String firstname = extras.getString("firstName");
         String lastname = extras.getString("lastName");
         String bio = extras.getString("bio");
+        String rating = extras.getString("rating");
 
         firstNameView.setText(firstname);
         lastNameView.setText(lastname);
         bioView.setText(bio);
-
-        String username;
-        if(extras != null) {
-            username = extras.getString("username");
-        } else {
-            username = "Couldn't get username";
-        }
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
