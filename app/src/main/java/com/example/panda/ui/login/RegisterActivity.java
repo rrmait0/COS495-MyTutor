@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
     private static final String ROOT_URL = "http://34.69.211.169/api/";
-    private static final String URL_REGISTER = ROOT_URL + "users/create";
+    private static final String URL_REGISTER = ROOT_URL + "users/create/new";
 
     private String username;
     private String email;
