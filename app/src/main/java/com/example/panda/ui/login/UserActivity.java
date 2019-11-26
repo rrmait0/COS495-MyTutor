@@ -44,28 +44,6 @@ public class UserActivity extends AppCompatActivity {
             username = "Couldn't get username";
         }
 
-        URL_PROFILE = ROOT_URL + "users/" + username;
-        System.out.println(URL_PROFILE);
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_PROFILE, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        JSONObject jObj = response;
-                        //TODO: Damn Daniel... back at it again with the strategy to store individual elements of this JSON object.
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("That didn't work!");
-            }
-        });
-        queue.add(jsonObjectRequest);
-
-
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

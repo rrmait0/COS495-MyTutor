@@ -159,6 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(
                                         getApplicationContext(),
                                         UserActivity.class);
+                                getProfile(username);
                                 intent.putExtra("username", username);
                                 startActivity(intent);
                             } else {
@@ -180,6 +181,27 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
+    private void getProfile(final String username) {
+        String URL_PROFILE = ROOT_URL + "users/" + username;
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_PROFILE, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        JSONObject jObj = response;
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!");
+            }
+        });
         queue.add(jsonObjectRequest);
     }
 }
