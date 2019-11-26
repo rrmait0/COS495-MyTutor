@@ -37,6 +37,14 @@ public class UserActivity extends AppCompatActivity {
         Button searchButton = findViewById(R.id.searchButton);
         Button appointmentButton = findViewById(R.id.appointmentButton);
 
+        String firstname = extras.getString("firstName");
+        String lastname = extras.getString("lastName");
+        String bio = extras.getString("bio");
+
+        firstNameView.setText(firstname);
+        lastNameView.setText(lastname);
+        bioView.setText(bio);
+
         String username;
         if(extras != null) {
             username = extras.getString("username");
