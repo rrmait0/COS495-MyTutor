@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
     private static final String ROOT_URL = "http://34.69.211.169/api/";
-    private static final String URL_REGISTER = ROOT_URL + "users/create";
+    private static final String URL_REGISTER = ROOT_URL + "users/create/new";
 
     private String username;
     private String email;
@@ -173,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
         return pattern.matcher(email).matches();
     }
 
-    private void registerUser(String firstName, String lastName, String username, String email, String password) {
+    private void registerUser(String firstName, String lastName, final String username, String email, String password) {
 
         final String defaultBio = "Hi, I'm " + firstName + "!";
         /*String cancelRequestTag = "register";
@@ -261,11 +261,7 @@ public class RegisterActivity extends AppCompatActivity {
                             String error = jObj.getString("status");
 
                             if (error.equals("success")) {
-                                // Launch User activity
-                                Intent intent = new Intent(
-                                        RegisterActivity.this,
-                                        UserActivity.class);
-                                finish();
+                                getProfile(username);
                             } else {
 
                                 String errorMsg = jObj.getString("error_msg");
@@ -287,7 +283,50 @@ public class RegisterActivity extends AppCompatActivity {
         queue.add(jsonObjectRequest);
     }
 
-    private void showRegistrationFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    private void getProfile(final String username) {
+        String URL_PROFILE = ROOT_URL + "users/" + username;
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_PROFILE, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject jObj = response;
+                            Intent intent = new Intent(
+                                    getApplicationContext(),
+                                    UserActivity.class);
+
+                            // The response contains a user object which contains first_name,
+                            // last_name, username, email, password. The other elements you can get
+                            // directly from the response by element.
+
+                            // Cache the values.
+                            JSONObject user = jObj.getJSONObject("user");
+                            String firstName = user.getString("first_name");
+                            String lastName = user.getString("last_name");
+                            String bio = jObj.getString("bio");
+                            String rating = jObj.getString("rating");
+
+                            // Use intent to carry them over to the UserActivity
+                            intent.putExtra("firstName", firstName);
+                            intent.putExtra("lastName", lastName);
+                            intent.putExtra("bio", bio);
+                            intent.putExtra("rating", rating);
+
+                            startActivity(intent);
+                        } catch (Exception e)  {
+                            System.out.println("In getProfile, exception was thrown.");
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!");
+            }
+        });
+        queue.add(jsonObjectRequest);
     }
+
 }
