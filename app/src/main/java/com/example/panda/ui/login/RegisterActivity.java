@@ -176,66 +176,6 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(String firstName, String lastName, final String username, String email, String password) {
 
         final String defaultBio = "Hi, I'm " + firstName + "!";
-        /*String cancelRequestTag = "register";
-
-        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_REGISTER, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                    Log.d(TAG, "Register Response: " + response);
-                    try {
-                        JSONObject jObj = response;
-                        String error = jObj.getString("status");
-
-                        if (error != "fail") {
-                            String user = jObj.getJSONObject("user").getString("first_name");
-                            // Launch User activity
-                            Intent intent = new Intent(
-                                    RegisterActivity.this,
-                                    UserActivity.class);
-                            intent.putExtra("username", user);
-                            startActivity(intent);
-                            Log.d(TAG, "Welcome " + user);
-                            finish();
-                        } else {
-
-                            String errorMsg = jObj.getString("error_msg");
-                            Toast.makeText(getApplicationContext(),
-                                    errorMsg, Toast.LENGTH_LONG).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("Response: " + response.toString());
-
-                }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("first_name", firstName);
-                params.put("last_name", lastName);
-                params.put("email", email);
-                params.put("username", username);
-                params.put("password", password);
-                params.put("bio", defaultBio);
-                System.out.println(params.toString());
-                return params;
-            }
-        };
-
-        //System.out.println(params.toString() + "POOPASS");
-        // Add request to queue.
-        AppSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest, cancelRequestTag);*/
-        // ...
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);

@@ -22,17 +22,15 @@ import org.json.JSONObject;
 
 public class UserActivity extends AppCompatActivity {
 
-    private static final String ROOT_URL = "http://34.69.211.169/api/";
-    private String URL_PROFILE;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         TextView firstNameView = findViewById(R.id.firstName);
         TextView lastNameView = findViewById(R.id.lastName);
+        TextView ratingView = findViewById(R.id.rating);
         TextView bioView = findViewById(R.id.bio);
         Button searchButton = findViewById(R.id.searchButton);
         Button appointmentButton = findViewById(R.id.appointmentButton);
@@ -40,21 +38,17 @@ public class UserActivity extends AppCompatActivity {
         String firstname = extras.getString("firstName");
         String lastname = extras.getString("lastName");
         String bio = extras.getString("bio");
-        String rating = extras.getString("rating");
+        String rating = "Rating: " + extras.getString("rating");
 
         firstNameView.setText(firstname);
         lastNameView.setText(lastname);
+        ratingView.setText(rating);
         bioView.setText(bio);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Use Intent to send the user to the next activity.
-                // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
-                Intent searchActivity = new Intent(getApplicationContext(), SearchActivity.class);
-
-                // Start that activity.
-                startActivity(searchActivity);
+               goToSearch(extras);
             }
         });
 
@@ -69,5 +63,23 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(appointmentActivity);
             }
         });*/
+    }
+
+    private void goToSearch(Bundle extras) {
+        String firstname = extras.getString("firstName");
+        String lastname = extras.getString("lastName");
+        String bio = extras.getString("bio");
+        String rating = extras.getString("rating");
+
+        // Use Intent to send the user to the next activity.
+        // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
+        Intent searchActivity = new Intent(getApplicationContext(), SearchActivity.class);
+        searchActivity.putExtra("firstName", firstname);
+        searchActivity.putExtra("lastName", lastname);
+        searchActivity.putExtra("bio", bio);
+        searchActivity.putExtra("rating", rating);
+
+        // Start that activity.
+        startActivity(searchActivity);
     }
 }

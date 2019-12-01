@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.UserActivity">
+    tools:context=".ui.login.SearchResultActivity">
 
     <ImageView
         android:id="@+id/profilePicture"
@@ -22,7 +22,7 @@
         />
 
     <TextView
-        android:id="@+id/firstName"
+        android:id="@+id/srfirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -38,7 +38,7 @@
         />
 
     <TextView
-        android:id="@+id/lastName"
+        android:id="@+id/srlastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -49,26 +49,11 @@
         android:gravity="center_horizontal"
 
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
-        app:layout_constraintTop_toBottomOf="@id/firstName"
-        />
-
-    <TextView
-        android:id="@+id/rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-
-        android:textColor="#000000"
-        app:fontFamily="@font/manjari_bold"
-        android:gravity="center_horizontal"
-
-        app:layout_constraintStart_toEndOf="@+id/profilePicture"
-        app:layout_constraintTop_toBottomOf="@id/lastName"
+        app:layout_constraintTop_toBottomOf="@id/srfirstName"
         />
 
     <Button
-        android:id="@+id/appointmentButton"
+        android:id="@+id/srappointmentButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -95,12 +80,12 @@
         android:textColor="#000000"
         app:fontFamily="@font/manjari_regular"
 
-        app:layout_constraintTop_toBottomOf="@+id/appointmentButton"
+        app:layout_constraintTop_toBottomOf="@+id/srappointmentButton"
         app:layout_constraintStart_toStartOf="parent"
         />
 
     <TextView
-        android:id="@+id/bio"
+        android:id="@+id/srbio"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="25dp"
@@ -111,11 +96,26 @@
         app:layout_constraintTop_toBottomOf="@+id/bioLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/homeButton"
-    />
+        app:layout_constraintBottom_toTopOf="@+id/srhomeButton"
+        />
+
+    <TextView
+        android:id="@+id/srrating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+
+        android:textColor="#000000"
+        app:fontFamily="@font/manjari_bold"
+        android:gravity="center_horizontal"
+
+        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintTop_toBottomOf="@id/srlastName"
+        />
 
     <Button
-        android:id="@+id/homeButton"
+        android:id="@+id/srhomeButton"
         android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -126,11 +126,11 @@
         android:layout_centerHorizontal="true"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/searchButton"
+        app:layout_constraintEnd_toStartOf="@+id/srsearchButton"
         />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/srsearchButton"
         android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -143,6 +143,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
