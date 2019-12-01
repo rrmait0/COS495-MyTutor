@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //Listens for when the user clicks on the signup button.
+        //Listens for when the user taps on the signup button.
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,12 +209,14 @@ public class LoginActivity extends AppCompatActivity {
                             String lastName = user.getString("last_name");
                             String bio = jObj.getString("bio");
                             String rating = jObj.getString("rating");
+                            Boolean isOGUser = true;
 
                             // Use intent to carry them over to the UserActivity
                             intent.putExtra("firstName", firstName);
                             intent.putExtra("lastName", lastName);
                             intent.putExtra("bio", bio);
                             intent.putExtra("rating", rating);
+                            intent.putExtra("isOGUser", isOGUser);
 
                             startActivity(intent);
                         } catch (Exception e)  {

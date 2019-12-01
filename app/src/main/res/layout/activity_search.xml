@@ -29,6 +29,11 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="25dp"
 
+        app:fontFamily="@font/manjari_bold"
+        android:background="@android:color/transparent"
+        android:text="Go"
+        android:layout_centerHorizontal="true"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +51,14 @@
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/homeButton"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/homeButton">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/searchResultsLayout"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 
 
     <Button
