@@ -12,3 +12,9 @@
 /captures
 .externalNativeBuild
 .cxx
+
+/server/db.sqlite3
+/server/*/migrations/
+/server/*/__pycache__/
+/server/profile_pics/
+/server/*/__init__.py
