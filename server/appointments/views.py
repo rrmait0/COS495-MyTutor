@@ -67,7 +67,7 @@ def book_appointment(request):
         appointment = appointment[0]
         if appointment.tutor == appointee:
             return Response(data = message)
-        appointment.appointee = user.username
+        appointment.appointee = appointee.username
         appointment.save()
         message['status'] = 'success'
     return Response(data = message)
