@@ -76,7 +76,7 @@
 
         app:fontFamily="@font/manjari_bold"
         android:background="@android:color/transparent"
-        android:text="Appointment"
+        android:text="Appointments"
         android:layout_centerHorizontal="true"
 
         android:layout_below="@+id/text"
