@@ -8,20 +8,19 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import Profile
 from .serializers import UserSerializer, ProfileSerializer
-# Create your views here.
 
 
 @api_view(['GET'])
 def get_user_info(request, username):
 
     try:
+        #make sure user exists
         user = User.objects.get(username=username)
     except:
         return Response(data={'status': 'fail'}, status=status.HTTP_404_NOT_FOUND)
 
     profile = Profile.objects.get(user=user)
     profile_serial = ProfileSerializer(profile)
-    #print(request.user)
     return Response(profile_serial.data)
 
 
@@ -56,13 +55,12 @@ def authentication_view(request):
     """
     Authenticate a user and log them in
     """
-    #try:
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
+    
+    data = request.data
+    username = data.get('username', '')
+    password = data.get('password', '')
+    user = authenticate(request, username=username, password=password)    
 
-    #except:
-    #return JsonResponse({"status": "fail"})
     if user is not None:
         login(request, user)
         return JsonResponse({"status": "success"})

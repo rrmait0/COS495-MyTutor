@@ -9,14 +9,14 @@ from django.contrib.auth import authenticate, login
 from credentials.models import Profile
 from django.db.models import Q
 
-# Create your views here.
+
 
 @api_view(['POST'])
 def search_profiles(request):
 
     try:
         if request.POST['search'] == '':
-            raise NameError()
+            raise NameError() 
         first_name = Q(first_name__contains = request.POST['search'] )
         last_name = Q(last_name__contains = request.POST['search'])
         username = Q(username__contains = request.POST['search'])
@@ -26,4 +26,4 @@ def search_profiles(request):
                               "last_name": x.last_name} for x in user]})
 
     except:
-        return JsonResponse([], safe = False)
+        return JsonResponse("search_results": [], safe = False)
