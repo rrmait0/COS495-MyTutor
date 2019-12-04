@@ -16,7 +16,7 @@ def available_appointments(request, username):
     user = get_object_or_404(User, username=username)
     appointments = Appointment.objects.available().filter(tutor = user).order_by('time')
     data = [AppointmentSerializer(x).data for x in appointments]
-    return Response(data = [ {"id": x["id"], "time": x["time"]} for x in data])
+    return Response(data = {"results": [ {"id": x["id"], "time": x["time"]} for x in data]})
 
 
 @api_view(['GET'])
@@ -30,7 +30,7 @@ def user_appointment_list(request, username):
     data = [AppointmentSerializer(x).data for x in appointments]
     for obj in data:
         obj['tutor'] = User.objects.get(pk = obj['tutor']).username
-    return Response(data = data)
+    return Response(data = {"results": data})
 
 @api_view(['POST'])
 def set_availability(request):
