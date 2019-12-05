@@ -186,6 +186,7 @@ public class SearchActivity extends AppCompatActivity {
                             String srlastName = user.getString("last_name");
                             String srbio = jObj.getString("bio");
                             String srrating = jObj.getString("rating");
+                            String srusername = user.getString("username");
                             System.out.println(srrating);
 
                             // Use intent to carry them over to the UserActivity
@@ -200,11 +201,14 @@ public class SearchActivity extends AppCompatActivity {
                             String lastname = extras.getString("lastName");
                             String bio = extras.getString("bio");
                             String rating = extras.getString("rating");
+                            String username = extras.getString("username");
 
                             intent.putExtra("firstName", firstname);
                             intent.putExtra("lastName", lastname);
                             intent.putExtra("bio", bio);
                             intent.putExtra("rating", rating);
+                            intent.putExtra("username", username);
+                            intent.putExtra("srusername", srusername);
 
                             startActivity(intent);
                         } catch (Exception e)  {
@@ -226,6 +230,7 @@ public class SearchActivity extends AppCompatActivity {
         String lastname = extras.getString("lastName");
         String bio = extras.getString("bio");
         String rating = extras.getString("rating");
+        String username = extras.getString("username");
 
         // Use Intent to send the user to the next activity.
         // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
@@ -234,6 +239,7 @@ public class SearchActivity extends AppCompatActivity {
         userActivity.putExtra("lastName", lastname);
         userActivity.putExtra("bio", bio);
         userActivity.putExtra("rating", rating);
+        userActivity.putExtra("username", username);
 
         // Start that activity.
         startActivity(userActivity);

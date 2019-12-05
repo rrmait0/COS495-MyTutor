@@ -50,17 +50,33 @@ public class SearchResultActivity extends AppCompatActivity {
         }
     });
 
-    /*appointmentButton.setOnClickListener(new View.OnClickListener() {
+    appointmentButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             // Use Intent to send the user to the next activity.
-             // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
-             Intent appointmentActivity = new Intent(getApplicationContext(), AppointmentActivity.class);
-
-             // Start that activity.
-             startActivity(appointmentActivity);
+             String username = extras.getString("username");
+             goToAppointments(extras, username);
          }
-     });*/
+     });
+    }
+
+    private void goToAppointments(final Bundle extras, String username){
+        String firstname = extras.getString("firstName");
+        String lastname = extras.getString("lastName");
+        String bio = extras.getString("bio");
+        String rating = extras.getString("rating");
+        String srusername = extras.getString("srusername");
+
+        // Use Intent to send the user to the next activity.
+        // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
+        final Intent searchResultAppointmentsActivity = new Intent(getApplicationContext(), SearchResultAppointmentsActivity.class);
+        searchResultAppointmentsActivity.putExtra("firstName", firstname);
+        searchResultAppointmentsActivity.putExtra("lastName", lastname);
+        searchResultAppointmentsActivity.putExtra("bio", bio);
+        searchResultAppointmentsActivity.putExtra("rating", rating);
+        searchResultAppointmentsActivity.putExtra("username", username);
+        searchResultAppointmentsActivity.putExtra("srusername", srusername);
+
+        startActivity(searchResultAppointmentsActivity);
     }
 
     private void goToSearch(Bundle extras) {
@@ -68,6 +84,7 @@ public class SearchResultActivity extends AppCompatActivity {
         String lastname = extras.getString("lastName");
         String bio = extras.getString("bio");
         String rating = extras.getString("rating");
+        String username = extras.getString("username");
 
         // Use Intent to send the user to the next activity.
         // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
@@ -76,6 +93,7 @@ public class SearchResultActivity extends AppCompatActivity {
         searchActivity.putExtra("lastName", lastname);
         searchActivity.putExtra("bio", bio);
         searchActivity.putExtra("rating", rating);
+        searchActivity.putExtra("username", username);
 
         // Start that activity.
         startActivity(searchActivity);
@@ -86,6 +104,7 @@ public class SearchResultActivity extends AppCompatActivity {
         String lastname = extras.getString("lastName");
         String bio = extras.getString("bio");
         String rating = extras.getString("rating");
+        String username = extras.getString("username");
 
         // Use Intent to send the user to the next activity.
         // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
@@ -94,6 +113,7 @@ public class SearchResultActivity extends AppCompatActivity {
         userActivity.putExtra("lastName", lastname);
         userActivity.putExtra("bio", bio);
         userActivity.putExtra("rating", rating);
+        userActivity.putExtra("username", username);
 
         // Start that activity.
         startActivity(userActivity);

@@ -209,14 +209,13 @@ public class LoginActivity extends AppCompatActivity {
                             String lastName = user.getString("last_name");
                             String bio = jObj.getString("bio");
                             String rating = jObj.getString("rating");
-                            Boolean isOGUser = true;
 
                             // Use intent to carry them over to the UserActivity
                             intent.putExtra("firstName", firstName);
                             intent.putExtra("lastName", lastName);
                             intent.putExtra("bio", bio);
                             intent.putExtra("rating", rating);
-                            intent.putExtra("isOGUser", isOGUser);
+                            intent.putExtra("username", username);
 
                             startActivity(intent);
                         } catch (Exception e)  {
@@ -228,6 +227,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("That didn't work!");
+                System.out.println(error.toString());
             }
         });
         queue.add(jsonObjectRequest);
