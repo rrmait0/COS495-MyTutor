@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from .models import Appointment
 from .serializers import AppointmentSerializer
 from django.db.models import Q
+from itertools import zip_longest
 
 
 @api_view(['GET'])
@@ -16,7 +17,9 @@ def available_appointments(request, username):
     user = get_object_or_404(User, username=username)
     appointments = Appointment.objects.available().filter(tutor = user).order_by('time')
     data = [AppointmentSerializer(x).data for x in appointments]
-    return Response(data = {"results": [ {"id": x["id"], "time": x["time"]} for x in data]})
+    return Response(data = {"results": [ {"id": x["id"], "time": x["time"],
+                                          "appointment_string": str(y)}
+                                         for (x,y) in zip_longest(data, appointments)]})
 
 
 @api_view(['GET'])
@@ -28,9 +31,10 @@ def user_appointment_list(request, username):
     appointments = Appointment.objects.filter(
         where_tutor | where_appointee)
     data = [AppointmentSerializer(x).data for x in appointments]
-    for obj in data:
+    for (obj,app) in zip_longest(data,appointments):
         obj['tutor'] = User.objects.get(pk = obj['tutor']).username
-    return Response(data = {"results": data})
+        obj['appointment_string'] = str(app)
+    return Response(data = {'results': data})
 
 @api_view(['POST'])
 def set_availability(request):
