@@ -6,4 +6,76 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.UserAppointmentsActivity">
 
+    <Button
+        android:id="@+id/createAppointment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:fontFamily="@font/manjari_bold"
+        android:background="@android:color/transparent"
+        android:text="Create An Availability"
+        android:layout_centerHorizontal="true"
+
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/appointments"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ScrollView
+        android:id="@+id/appointments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="25dp"
+
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/homeButton">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/appointmentsLayout"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:fontFamily="@font/manjari_bold"
+        android:background="@android:color/transparent"
+        android:text="Home"
+        android:layout_centerHorizontal="true"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/searchButton"
+        />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintHorizontal_weight="1"
+
+        app:fontFamily="@font/manjari_bold"
+        android:background="@android:color/transparent"
+        android:text="Search"
+        android:layout_centerHorizontal="true"
+
+        app:layout_constraintStart_toEndOf="@+id/homeButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

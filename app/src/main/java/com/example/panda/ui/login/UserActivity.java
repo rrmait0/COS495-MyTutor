@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.panda.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +40,7 @@ public class UserActivity extends AppCompatActivity {
         String lastname = extras.getString("lastName");
         String bio = extras.getString("bio");
         String rating = "Rating: " + extras.getString("rating");
+        final String username = extras.getString("username");
 
         firstNameView.setText(firstname);
         lastNameView.setText(lastname);
@@ -48,24 +50,37 @@ public class UserActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               goToSearch(extras);
+               goToSearch(extras, username);
             }
         });
 
-        /*appointmentButton.setOnClickListener(new View.OnClickListener() {
+        appointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Use Intent to send the user to the next activity.
-                // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
-                Intent appointmentActivity = new Intent(getApplicationContext(), AppointmentActivity.class);
-
-                // Start that activity.
-                startActivity(appointmentActivity);
+                goToAppointments(extras, username);
             }
-        });*/
+        });
     }
 
-    private void goToSearch(Bundle extras) {
+    private void goToAppointments(final Bundle extras, String username){
+        String firstname = extras.getString("firstName");
+        String lastname = extras.getString("lastName");
+        String bio = extras.getString("bio");
+        String rating = extras.getString("rating");
+
+        // Use Intent to send the user to the next activity.
+        // Intent constructor arguments (<Your Current Activity>, <Your Next Activity Class>)
+        final Intent userAppointmentsActivity = new Intent(getApplicationContext(), UserAppointmentsActivity.class);
+        userAppointmentsActivity.putExtra("firstName", firstname);
+        userAppointmentsActivity.putExtra("lastName", lastname);
+        userAppointmentsActivity.putExtra("bio", bio);
+        userAppointmentsActivity.putExtra("rating", rating);
+        userAppointmentsActivity.putExtra("username", username);
+
+        startActivity(userAppointmentsActivity);
+    }
+
+    private void goToSearch(Bundle extras, String username) {
         String firstname = extras.getString("firstName");
         String lastname = extras.getString("lastName");
         String bio = extras.getString("bio");
@@ -78,6 +93,7 @@ public class UserActivity extends AppCompatActivity {
         searchActivity.putExtra("lastName", lastname);
         searchActivity.putExtra("bio", bio);
         searchActivity.putExtra("rating", rating);
+        searchActivity.putExtra("username", username);
 
         // Start that activity.
         startActivity(searchActivity);

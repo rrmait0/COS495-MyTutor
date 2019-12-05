@@ -253,6 +253,7 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.putExtra("lastName", lastName);
                             intent.putExtra("bio", bio);
                             intent.putExtra("rating", rating);
+                            intent.putExtra("username", username);
 
                             startActivity(intent);
                         } catch (Exception e)  {
